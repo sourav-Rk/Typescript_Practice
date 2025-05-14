@@ -1,0 +1,18 @@
+POLYMORPHISM
+
+Polymorphism refers to the ability of a function or method in a class to take on many forms.
+
+TypeScript supports the polymorphism concept in various ways, including:
+
+Function overloading
+Function overriding
+Interface
+
+
+GENERIC CLASSES
+
+
+ What is Dependency Injection?
+Dependency Injection is a design pattern in which an object receives its dependencies from the outside, 
+rather than creating them itself. It helps make components more modular, testable, and loosely coupled.
+ 
