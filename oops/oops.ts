@@ -290,7 +290,7 @@ class UPIPayment extends Payment{
 }
 
 function processPayment(paymentMethod : Payment,amount : number){
-    paymentMethod.pay(amount) //calls the overriden version
+    paymentMethod.pay(amount) //calls the  overriden version
 }
 
 const card = new CreditCardPayment()
@@ -393,9 +393,9 @@ function add(a:any,b:any){
 }
 
 //greet function
-function greet(person : string) : string;
-function greet(person : string[]) : string;
-function greet(person : string | string[]): string {
+function greetPerson(person : string) : string;
+function greetPerson(person : string[]) : string;
+function greetPerson(person : string | string[]): string {
      if(typeof person === "string"){
         return person
      }else{
@@ -478,7 +478,7 @@ class ApiResponse<T>{
         public data : T ,
         public message ?: string
     ){}
-}
+};
 
 interface UserApi{
     id : string,
