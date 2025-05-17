@@ -4,8 +4,8 @@ let num = 1;
 let numArr = [1,2,3];
 
 //contextual typing
-document.addEventListener('click',function(evnent){
-    console.log(evnent.button)  //TypeScript sees "click" and knows the callback will receive a MouseEvent.
+document.addEventListener('click',function(event){
+    console.log(event.button)  //TypeScript sees "click" and knows the callback will receive a MouseEvent.
 });
 
 function logUser(user : {name : string, age : number}){

@@ -15,4 +15,229 @@ GENERIC CLASSES
  What is Dependency Injection?
 Dependency Injection is a design pattern in which an object receives its dependencies from the outside, 
 rather than creating them itself. It helps make components more modular, testable, and loosely coupled.
+
+
+SOLID PRINCIPLES
+When building software, we aim to write clean, understandable, and maintainable code. The SOLID principles are five golden rules in object-oriented programming that help us achieve this. They were introduced by Robert C. Martin (Uncle Bob) and are widely used by professional developers around the world.
+
+Let’s break them down one by one — with simple and relatable TypeScript examples.
+
+1. S – Single Responsibility Principle (SRP)
+Definition: A class should have only one reason to change, meaning it should only do one job.
+
+Why?
+If a class does too many things, even a small change can lead to bugs and affect other responsibilities.
+
+Example:
+
+Bad:
+
+ts
+Copy
+Edit
+class UserManager {
+  createUser() { /* logic to create user */ }
+  sendEmail() { /* logic to send email */ }
+}
+Good (SRP Applied):
+
+ts
+Copy
+Edit
+class UserCreator {
+  createUser() { /* logic to create user */ }
+}
+
+class EmailSender {
+  sendEmail() { /* logic to send email */ }
+}
+Now, changes in email logic don’t affect user creation logic.
+
+2. O – Open/Closed Principle (OCP)
+Definition: A class should be open for extension but closed for modification.
+
+Why?
+You should be able to add new functionality without changing existing code.
+
+Example:
+
+Bad:
+
+ts
+Copy
+Edit
+class Discount {
+  getDiscount(type: string): number {
+    if (type === "regular") return 10;
+    if (type === "premium") return 20;
+    return 0;
+  }
+}
+Good (OCP Applied using polymorphism):
+
+ts
+Copy
+Edit
+interface DiscountStrategy {
+  getDiscount(): number;
+}
+
+class RegularDiscount implements DiscountStrategy {
+  getDiscount() { return 10; }
+}
+
+class PremiumDiscount implements DiscountStrategy {
+  getDiscount() { return 20; }
+}
+
+function calculateDiscount(strategy: DiscountStrategy) {
+  return strategy.getDiscount();
+}
+Now, to add a new discount type, just create a new class. No changes to existing code.
+
+3. L – Liskov Substitution Principle (LSP)
+Definition: Subtypes should be substitutable for their base types without breaking the application.
+
+Why?
+If you use a subclass, it should behave like its parent class without unexpected issues.
+
+Example:
+
+Bad:
+
+ts
+Copy
+Edit
+class Bird {
+  fly() { console.log("Flying"); }
+}
+
+class Ostrich extends Bird {
+  fly() { throw new Error("Ostrich can't fly!"); }
+}
+Good (LSP Applied):
+
+ts
+Copy
+Edit
+abstract class Bird { }
+
+class FlyingBird extends Bird {
+  fly() { console.log("Flying"); }
+}
+
+class Ostrich extends Bird {
+  walk() { console.log("Walking"); }
+}
+Now, Ostrich doesn’t break expectations by pretending to fly.
+
+4. I – Interface Segregation Principle (ISP)
+Definition: Don’t force a class to implement methods it doesn’t need.
+
+Why?
+Smaller, more focused interfaces are easier to implement and maintain.
+
+Example:
+
+Bad:
+
+ts
+Copy
+Edit
+interface Worker {
+  work(): void;
+  eat(): void;
+}
+
+class Robot implements Worker {
+  work() { console.log("Working"); }
+  eat() { throw new Error("Robots don't eat!"); }
+}
+Good (ISP Applied):
+
+ts
+Copy
+Edit
+interface Workable {
+  work(): void;
+}
+
+interface Eatable {
+  eat(): void;
+}
+
+class Robot implements Workable {
+  work() { console.log("Working"); }
+}
+Now, each class only implements what it truly needs.
+
+5. D – Dependency Inversion Principle (DIP)
+Definition: Depend on abstractions, not on concrete classes.
+
+Why?
+It makes your code flexible and easier to test or change.
+
+Example:
+
+Bad:
+
+ts
+Copy
+Edit
+class MySQLDatabase {
+  save(data: string) { console.log("Saved to MySQL"); }
+}
+
+class DataManager {
+  db = new MySQLDatabase();
+  saveData(data: string) { this.db.save(data); }
+}
+Good (DIP Applied):
+
+ts
+Copy
+Edit
+interface Database {
+  save(data: string): void;
+}
+
+class MySQLDatabase implements Database {
+  save(data: string) { console.log("Saved to MySQL"); }
+}
+
+class DataManager {
+  constructor(private db: Database) {}
+  saveData(data: string) { this.db.save(data); }
+}
+Now, you can easily switch to MongoDB or a mock DB for testing by passing a different implementation.
+
+🎯 Conclusion
+Understanding and applying SOLID principles helps us write code that is:
+
+Easy to understand
+
+Easy to maintain
+
+Easy to extend without breaking existing functionality
+
+Here’s a quick summary:
+
+Principle	Focus	Tip
+SRP	One job per class	Separate responsibilities
+OCP	Extend, don’t modify	Use interfaces & inheritance
+LSP	Subclasses behave properly	Avoid broken behavior
+ISP	Small, specific interfaces	Don’t over-stuff interfaces
+DIP	Depend on abstractions	Use interfaces for flexibility
+
+
+
+DEPENDENCY INJECTION
+"Dependency Injection is a design pattern used to achieve Inversion of Control by providing an object’s
+ dependencies from the outside rather than letting the object create them itself. This promotes loose 
+ coupling between components, enhances testability, and makes the system more modular and maintainable."
+
+You can also add a short example if asked to elaborate:
+
+For example, instead of a class directly creating a database instance, it receives the database via
+ constructor or method injection. This way, we can easily swap the database implementation or mock it during testing.
  

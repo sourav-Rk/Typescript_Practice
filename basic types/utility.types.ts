@@ -82,3 +82,24 @@ type Pet = Exclude<Animal, "cat"|"fish">;
 type Pet2 = Extract<Animal,"dog"|"cat">;
 
 //--------------------------------------------------------------------------------------------------------
+
+//8. Record
+type RecordType = "name" | "email";
+type RecordTypeSample = Record<RecordType,string[]>
+
+//9. index types
+type IndexTypes = {
+    name : string;
+    age : number;
+};
+
+const userObj : IndexTypes = {
+    name : "sourav",
+    age : 21
+}
+
+function getProperty<T,K extends keyof T>(obj : T, key : K) : T[K]{
+    return obj[key]
+}
+
+console.log(getProperty(userObj,"name"));

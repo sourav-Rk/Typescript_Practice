@@ -109,4 +109,24 @@ let numOrString : number | string;
 
  //---------------------------------------------------------------------------------------------------------
 
- //
+ //10. Mapped type
+ // => allows you to create a new type by transforming the properties of an existing type in a uniform way.
+
+ type MappedUser = {
+   name : string;
+   age : number;
+ }
+ 
+ //optional
+ type OptionalUser = {
+   [k in keyof MappedUser] ?: MappedUser[k]
+ }
+
+ //readonly
+ type ReadOnlyUser = {
+   readonly [k in keyof MappedUser] : MappedUser[k]
+ }
+ 
+ //eg ===> utility types
+
+

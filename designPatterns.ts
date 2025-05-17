@@ -52,3 +52,42 @@ db.query("select * from users")
 
 
 //------------------------------------------------------------------------------------------------------------
+
+//------Dependency  injection---------------
+interface ILogger{
+    log(message : string) : void
+}
+
+class ConsoleLogger implements ILogger{
+  log(message : string){
+    console.log(message)
+  }
+}
+
+class FileLogger implements ILogger{
+    log(message : string){
+        console.log(message)
+    }
+};
+
+class UserService{
+    constructor(private logger : ILogger,public message : string){
+
+    }
+    logMessage(){
+        this.logger.log(this.message);
+    }
+}
+
+const logger = new ConsoleLogger()
+const service = new UserService(logger,"console logger");
+
+const fileLogger = new FileLogger();
+const service2 = new UserService(fileLogger,"file logger");
+service.logMessage()
+service2.logMessage()
+
+
+
+
+
